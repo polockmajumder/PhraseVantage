@@ -1,0 +1,2041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Geist:wght@100..900&family=Goudy+Bookletter+1911&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=League+Spartan:wght@100..900&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&family=Manrope:wght@200..800&family=Noto+Sans+Bengali:wght@100..900&family=Outfit:wght@100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+
+    <title>Static English</title>
+
+<style>
+    /* --- BODY SETUP --- */
+
+
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: #00000000;
+}
+
+body {
+    background-color: #000000;
+    font-family:"Manrope", sans-serif;
+    color: #E4FBEA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+     -webkit-font-smoothing: antialiased;
+}
+
+
+
+
+
+/* --- HEADER --- */
+
+
+
+
+
+header {
+    margin: 50px 0 50px;
+    text-align: center;
+    animation: liquidReveal 1.4s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+@keyframes liquidReveal {
+    0% { opacity: 0; transform: translateY(40px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.logo {
+    cursor:pointer;
+    padding: 20px;
+    display: inline-block;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.logo h1 {
+    line-height: 0.8;
+    font-family: "Outfit", sans-serif;
+    font-size: 9rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -4px;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: #00000000;
+}
+
+.phrase { 
+    background: linear-gradient(180deg, #909090 20%, #FFFFFF 100%); 
+    z-index: 2; 
+}
+
+.vantage { 
+    background: linear-gradient(180deg, #09FE43 20%, #00641A 100%);
+    transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1; 
+}
+
+.logo:hover .vantage {
+    letter-spacing: 12px;
+    background: linear-gradient(120deg, #00641A 0%, #00641A 40%, #09FE43 50%, #00641A 60%, #00641A 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: shine 1.5s linear infinite;
+}
+
+@keyframes shine {
+    to { background-position: 200% center; }
+}
+
+
+
+
+
+/* --- NAVBAR --- */
+
+
+
+
+
+nav {
+    display: flex;
+    width: 100%;
+    max-width: 1700px;
+    border: 1px solid #58585833;
+    border-left: 0;
+    align-items: center;
+    margin-bottom: 40px;
+    animation: liquidReveal 1.4s cubic-bezier(0.19, 1, 0.22, 1) 0.1s both;
+}
+
+nav ul { 
+    display: flex; 
+    list-style: none; 
+    width: 100%; 
+}
+
+nav ul li { 
+    flex: 1; 
+    text-align: center; 
+    font-size: 0.9rem; 
+    font-weight: 500; 
+    text-transform: uppercase; 
+    letter-spacing: 4px; 
+    color: #E4FBEA66; 
+    border: 1px solid #58585833; 
+    transition: all 0.5s ease; 
+}
+
+nav ul li a { 
+    display: block; 
+    width: 100%; 
+    padding: 25px 0; 
+    text-decoration: none; 
+    color: inherit; 
+}
+
+nav ul li:hover, nav ul li.active {
+    color: #E4FBEA;
+    border: 1px solid #E4FBEA;
+    letter-spacing: 5px;
+}
+
+
+
+
+
+/* --- VOCAB CARDS --- */
+
+
+
+
+
+main {
+    width: 100%; 
+    max-width: 1700px; 
+    padding: 0 40px 100px; 
+}
+
+.card {
+    border: 1px solid #58585833; 
+    display: flex;
+    align-items: stretch;
+    padding: 50px 50px;
+    Position: relative;
+    
+    transition: all 0.4s ease;
+    animation: liquidReveal 1s cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+.card:hover { 
+    border-color: #E4FBEA; 
+    z-index: 10; 
+    transform: translateY(-2px); 
+}
+
+.pos-box { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    width: 40px; 
+    margin-right: 40px; flex-shrink: 0; 
+}
+
+.pos { transform: rotate(-90deg); 
+    white-space: nowrap; 
+    font-size: 0.7rem; 
+    font-weight: 700; 
+    color: #444444; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+}
+
+.card:hover .pos { 
+    color: #E4FBEA; 
+}
+
+.word { 
+    display: flex; 
+    flex:1;
+    align-items: center; 
+    font-size: 3.5rem; 
+    font-weight: 600; 
+    color: #E4FBEA; 
+    min-width: 420px; 
+    padding-right: 40px; 
+    letter-spacing: -2px; 
+    transition: transform 0.6s ease; 
+}
+
+.card:hover .word { 
+    transform: translateX(10px); 
+}
+
+.divider-box {
+    display: flex; 
+    align-items: center; 
+    margin-right: 40px;
+}
+
+.divider { 
+    width: 1px; 
+    height: 80px; 
+    background-color: #58585833; 
+    transition: 0.6s ease; 
+}
+
+.card:hover .divider { 
+    background-color: #09FE43; 
+    height: 100px; 
+}
+
+.meaning-box { 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    flex: 1;
+    padding-right: 40px; 
+}
+
+.label { 
+    font-size: 0.7rem; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+    color: #09FE43; 
+    margin-bottom: 6px; 
+    font-weight: 800; 
+    opacity: 0.5; 
+}
+
+.meaning { 
+    font-size: 1.1rem; 
+    line-height: 1.5; 
+    color: #E4FBEA80; 
+    transition: color 0.4s ease; 
+}
+
+.card:hover .meaning { 
+    color: #E4FBEA; 
+}
+
+.example-box { 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    flex: 1;  
+}
+
+.example { 
+    font-size: 1.1rem;  
+    line-height: 1.5; 
+    color: #E4FBEA80; 
+    transition: color 0.4s ease; 
+}
+
+.card:hover .example { 
+    color: #E4FBEA; 
+}
+
+.number { 
+    position: absolute; 
+    top: 30px; 
+    right: 30px; 
+    font-weight: 400;
+    font-size: 0.7rem; 
+    color: #444444; 
+    transition: 0.4s ease; 
+}
+
+.card:hover .number { 
+    color: #E4FBEA; 
+    font-size: 1rem; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+    /* --- HEADER TWEAKS --- */
+    .logo h1 { font-size: 4.5rem; letter-spacing: -3px; }
+
+    /* --- FLOATING BOTTOM NAV --- */
+    nav {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 400px;
+        z-index: 999;
+        background: rgba(10, 10, 10, 0.8);
+        backdrop-filter: blur(20px); /* Glassmorphism */
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(228, 251, 234, 0.1);
+        border-radius: 100px; /* Capsule shape */
+        padding: 8px;
+        margin-bottom: 0;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        animation: slideUpNav 1s cubic-bezier(0.19, 1, 0.22, 1) both;
+    }
+
+    @keyframes slideUpNav {
+        0% { transform: translate(-50%, 100px); opacity: 0; }
+        100% { transform: translate(-50%, 0); opacity: 1; }
+    }
+
+    nav ul {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        overflow-x: visible; /* No more scrolling needed */
+    }
+
+    nav ul li {
+        border: none;
+        flex: 1;
+        transition: transform 0.3s ease;
+    }
+
+    nav ul li a {
+        padding: 12px 0;
+        font-size: 0.6rem; /* Smaller for the capsule look */
+        letter-spacing: 1px;
+        color: #E4FBEA66;
+    }
+
+    /* The "Active" Pill Style */
+    nav ul li.active {
+        background: #09FE43;
+        border-radius: 100px;
+        border: none;
+    }
+
+    nav ul li.active a {
+        color: #000000;
+        font-weight: 800;
+    }
+
+    /* --- MAIN CONTENT ADJUSTMENT --- */
+    main {
+        padding: 0 20px 120px; /* Extra bottom padding so nav doesn't hide content */
+    }
+
+    /* --- CARD MOBILE TWEAKS --- */
+    .card {
+        flex-direction: column;
+        padding: 30px;
+        margin-bottom: 15px;
+        border-radius: 20px; /* Softer edges for mobile */
+    }
+
+    .divider-box { display: none; }
+    .pos-box {
+        width: auto;         /* Remove the fixed 40px width */
+        margin-right: 0;     /* Remove the desktop spacing */
+        margin-bottom: 8px;  /* Add space below the label instead */
+        display: block;      /* Allow it to sit on its own line */
+    }
+
+    .pos {
+        transform: none;     /* Ensure it's not rotated */
+        letter-spacing: 1px; /* Optional: tighten for mobile readability */
+        display: inline-block;
+    }
+
+    .word {
+        padding-right: 0;    /* Remove desktop padding */
+        margin-top: 0;       /* Ensure it hugs the label above it */
+    }
+}
+</style>
+
+
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            <h1 class="phrase">Phrase</h1>
+            <h1 class="vantage">Vantage</h1>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li class="active"><a href="#">Vocabularies</a></li>
+            <li><a href="#phrases">Phrases</a></li>
+            <li><a href="#phrasal verbs">Phrasal Verbs</a></li>
+            <li><a href="#grammar">Grammar</a></li>
+        </ul>
+    </nav>
+
+    <main>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Abundant</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Existing in large quantities.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"There is abundant evidence to support the theory."</p>
+    </div>
+    <div class="number-box"><span class="number">01</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Verb</span></div>
+    <h2 class="word">Accumulate</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">To gather or build up.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Dust tends to accumulate under the bed."</p>
+    </div>
+    <div class="number-box"><span class="number">02</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Verb</span></div>
+    <h2 class="word">Acquire</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">To get or learn something.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Students acquire new skills through practice."</p>
+    </div>
+    <div class="number-box"><span class="number">03</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Verb</span></div>
+    <h2 class="word">Advocate</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">To publicly support an idea.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Many people advocate for shorter work weeks."</p>
+    </div>
+    <div class="number-box"><span class="number">04</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Ambiguous</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Not clear; having two meanings.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The instructions were ambiguous and confusing."</p>
+    </div>
+    <div class="number-box"><span class="number">05</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Aptitude</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">A natural ability to do something.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"She has an aptitude for learning languages."</p>
+    </div>
+    <div class="number-box"><span class="number">06</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Arid</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Very dry (little rain).</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Few plants can survive in an arid desert."</p>
+    </div>
+    <div class="number-box"><span class="number">07</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Assimilation</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Adjusting to a new culture.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Cultural assimilation can take many years."</p>
+    </div>
+    <div class="number-box"><span class="number">08</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Automation</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Using machines instead of people.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Automation has changed the industry."</p>
+    </div>
+    <div class="number-box"><span class="number">09</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Biodiversity</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Variety of life in the world.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Tropical forests have high biodiversity."</p>
+    </div>
+    <div class="number-box"><span class="number">10</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Brief</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Lasting a short time.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The meeting was very brief."</p>
+    </div>
+    <div class="number-box"><span class="number">11</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Verb</span></div>
+    <h2 class="word">Clarify</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">To make something clear.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Could you clarify what you meant?"</p>
+    </div>
+    <div class="number-box"><span class="number">12</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Cognitive</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Related to thinking or the mind.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Puzzles help improve cognitive abilities."</p>
+    </div>
+    <div class="number-box"><span class="number">13</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Coherent</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Logical and easy to understand.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"He gave a coherent explanation of the problem."</p>
+    </div>
+    <div class="number-box"><span class="number">14</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Compelling</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Very exciting or convincing.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The lawyer presented a compelling argument."</p>
+    </div>
+    <div class="number-box"><span class="number">15</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Compulsory</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Must be done (mandatory).</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Primary education is compulsory in most countries."</p>
+    </div>
+    <div class="number-box"><span class="number">16</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Consequence</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">A result of an action.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Every choice has a consequence."</p>
+    </div>
+    <div class="number-box"><span class="number">17</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Conservation</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Protection of natural things.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Forest conservation is vital for the planet."</p>
+    </div>
+    <div class="number-box"><span class="number">18</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Verb</span></div>
+    <h2 class="word">Contaminate</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">To make something dirty.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Chemicals can contaminate our drinking water."</p>
+    </div>
+    <div class="number-box"><span class="number">19</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Verb</span></div>
+    <h2 class="word">Contradict</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">To say the opposite of.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"His actions contradict his words."</p>
+    </div>
+    <div class="number-box"><span class="number">20</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Curriculum</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">The subjects studied in a course.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The school is updating its science curriculum."</p>
+    </div>
+    <div class="number-box"><span class="number">21</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Demographics</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Data about a population.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The demographics of the city are changing."</p>
+    </div>
+    <div class="number-box"><span class="number">22</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Depletion</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Reduction in the quantity.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The depletion of the ozone layer is a concern."</p>
+    </div>
+    <div class="number-box"><span class="number">23</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Detrimental</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Causing harm or damage.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Smoking is detrimental to your health."</p>
+    </div>
+    <div class="number-box"><span class="number">24</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Verb</span></div>
+    <h2 class="word">Deviate</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">To turn away from a plan/path.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Do not deviate from the original script."</p>
+    </div>
+    <div class="number-box"><span class="number">25</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Dilemma</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">A difficult choice.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"I am in a dilemma about which job to take."</p>
+    </div>
+    <div class="number-box"><span class="number">26</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Discipline</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">A field of study or self-control.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Mathematics is a challenging academic discipline."</p>
+    </div>
+    <div class="number-box"><span class="number">27</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Diversity</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">A range of different things.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The university prides itself on its diversity."</p>
+    </div>
+    <div class="number-box"><span class="number">28</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Drastic</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Sudden and extreme.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The company took drastic measures to save money."</p>
+    </div>
+    <div class="number-box"><span class="number">29</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Ecosystem</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">All living things in an area.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Pollution damages the marine ecosystem."</p>
+    </div>
+    <div class="number-box"><span class="number">30</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Eloquent</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Fluent or persuasive in speaking.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"She gave an eloquent speech."</p>
+    </div>
+    <div class="number-box"><span class="number">31</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Emission</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Gas or heat sent out.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Cars produce high carbon emissions."</p>
+    </div>
+    <div class="number-box"><span class="number">32</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Verb</span></div>
+    <h2 class="word">Enhance</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">To improve the quality of.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Fresh herbs enhance the flavor of the soup."</p>
+    </div>
+    <div class="number-box"><span class="number">33</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Verb</span></div>
+    <h2 class="word">Enlighten</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">To give someone knowledge.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The seminar served to enlighten the students."</p>
+    </div>
+    <div class="number-box"><span class="number">34</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Entrepreneur</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Someone who starts a business.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Every entrepreneur takes a financial risk."</p>
+    </div>
+    <div class="number-box"><span class="number">35</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Epidemic</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Widespread disease.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The flu epidemic affected thousands."</p>
+    </div>
+    <div class="number-box"><span class="number">36</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Verb</span></div>
+    <h2 class="word">Eradicate</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">To destroy completely.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Doctors hope to eradicate the virus soon."</p>
+    </div>
+    <div class="number-box"><span class="number">37</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Erosion</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Wearing away of soil/rock.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Coastal erosion is caused by rising sea levels."</p>
+    </div>
+    <div class="number-box"><span class="number">38</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Verb</span></div>
+    <h2 class="word">Exacerbate</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">To make a bad situation worse.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Noise can exacerbate a headache."</p>
+    </div>
+    <div class="number-box"><span class="number">39</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Feasible</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Possible to do easily.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"It is not feasible to finish the project today."</p>
+    </div>
+    <div class="number-box"><span class="number">40</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Verb</span></div>
+    <h2 class="word">Fluctuate</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">To rise and fall irregularly.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Oil prices fluctuate every day."</p>
+    </div>
+    <div class="number-box"><span class="number">41</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Freelance</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Working for oneself.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"He enjoys the flexibility of freelance work."</p>
+    </div>
+    <div class="number-box"><span class="number">42</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Fundamental</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Basic and important.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Clean water is a fundamental human right."</p>
+    </div>
+    <div class="number-box"><span class="number">43</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Gullible</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Easily tricked or fooled.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"He is so gullible he believes everything."</p>
+    </div>
+    <div class="number-box"><span class="number">44</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Heritage</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Traditions or history of a group.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"We must preserve our cultural heritage."</p>
+    </div>
+    <div class="number-box"><span class="number">45</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Hierarchy</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">A system of ranking people.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"There is a strict hierarchy in the army."</p>
+    </div>
+    <div class="number-box"><span class="number">46</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Verb</span></div>
+    <h2 class="word">Hinder</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">To make it difficult.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"High costs can hinder progress."</p>
+    </div>
+    <div class="number-box"><span class="number">47</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Hypothesis</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">An idea not yet proven.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The scientist tested his hypothesis."</p>
+    </div>
+    <div class="number-box"><span class="number">48</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Impartial</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Not biased; fair.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"A judge must remain impartial."</p>
+    </div>
+    <div class="number-box"><span class="number">49</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Verb</span></div>
+    <h2 class="word">Implement</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">To start using a plan/system.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The school will implement new rules."</p>
+    </div>
+    <div class="number-box"><span class="number">50</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Incentive</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Encouragement for action.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"A bonus is a great incentive for hard work."</p>
+    </div>
+    <div class="number-box"><span class="number">51</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Inevitable</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Certain to happen.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Change is an inevitable part of life."</p>
+    </div>
+    <div class="number-box"><span class="number">52</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Infrastructure</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Basic systems like roads.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The city needs better infrastructure."</p>
+    </div>
+    <div class="number-box"><span class="number">53</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Verb</span></div>
+    <h2 class="word">Inhibit</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">To prevent or slow down.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Cold weather can inhibit plant growth."</p>
+    </div>
+    <div class="number-box"><span class="number">54</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Innovation</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">A new idea or method.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Technology thrives on constant innovation."</p>
+    </div>
+    <div class="number-box"><span class="number">55</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Verb</span></div>
+    <h2 class="word">Justify</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">To give a good reason for.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"How can you justify the high cost?"</p>
+    </div>
+    <div class="number-box"><span class="number">56</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Laborious</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Requiring much effort.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Checking data manually is a laborious task."</p>
+    </div>
+    <div class="number-box"><span class="number">57</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Literacy</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">The ability to read and write.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Adult literacy rates have improved."</p>
+    </div>
+    <div class="number-box"><span class="number">58</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Longevity</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Long life.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Healthy eating contributes to longevity."</p>
+    </div>
+    <div class="number-box"><span class="number">59</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Lucrative</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Producing a lot of profit.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Real estate can be a lucrative business."</p>
+    </div>
+    <div class="number-box"><span class="number">60</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Verb</span></div>
+    <h2 class="word">Manipulate</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">To control cleverly.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"He knows how to manipulate the data."</p>
+    </div>
+    <div class="number-box"><span class="number">61</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Verb</span></div>
+    <h2 class="word">Maximize</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">To make as large as possible.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"We want to maximize our profits."</p>
+    </div>
+    <div class="number-box"><span class="number">62</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Meticulous</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Showing attention to detail.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"He is meticulous about his work."</p>
+    </div>
+    <div class="number-box"><span class="number">63</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Verb</span></div>
+    <h2 class="word">Mitigate</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">To make something less harmful.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Planting trees helps mitigate climate change."</p>
+    </div>
+    <div class="number-box"><span class="number">64</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Negligible</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">So small it is not important.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The difference in price was negligible."</p>
+    </div>
+    <div class="number-box"><span class="number">65</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Norms</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Standard patterns of behavior.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Social norms vary between countries."</p>
+    </div>
+    <div class="number-box"><span class="number">66</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Notion</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">An idea or belief.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"I don't agree with the notion that money is everything."</p>
+    </div>
+    <div class="number-box"><span class="number">67</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Nutrient</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Substance that helps growth.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Vegetables are full of essential nutrients."</p>
+    </div>
+    <div class="number-box"><span class="number">68</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Obesity</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Being very overweight.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Childhood obesity is a growing problem."</p>
+    </div>
+    <div class="number-box"><span class="number">69</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Obsolete</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">No longer used; out of date.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Typewriters are now largely obsolete."</p>
+    </div>
+    <div class="number-box"><span class="number">70</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Optimistic</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Hopeful about the future.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"I am optimistic that we will win."</p>
+    </div>
+    <div class="number-box"><span class="number">71</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Paradigm</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">A typical pattern or model.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"This caused a paradigm shift in science."</p>
+    </div>
+    <div class="number-box"><span class="number">72</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Paradox</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">A situation that seems impossible.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"It is a paradox that more choice can hurt."</p>
+    </div>
+    <div class="number-box"><span class="number">73</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Pedagogy</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">The method of teaching.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Modern pedagogy focuses on interaction."</p>
+    </div>
+    <div class="number-box"><span class="number">74</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Plausible</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Seemingly reasonable.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"That sounds like a plausible explanation."</p>
+    </div>
+    <div class="number-box"><span class="number">75</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Pragmatic</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Practical problem solving.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"We need a pragmatic approach to this."</p>
+    </div>
+    <div class="number-box"><span class="number">76</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Prejudice</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Unfair opinion without reason.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Education can help eliminate prejudice."</p>
+    </div>
+    <div class="number-box"><span class="number">77</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Pristine</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Pure and clean.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The mountain air was fresh and pristine."</p>
+    </div>
+    <div class="number-box"><span class="number">78</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Profound</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Very great or intense.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The book had a profound impact on me."</p>
+    </div>
+    <div class="number-box"><span class="number">79</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Prosperity</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Being successful or wealthy.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Economic prosperity benefits the nation."</p>
+    </div>
+    <div class="number-box"><span class="number">80</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Qualitative</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Relating to quality, not quantity.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The study provided qualitative data."</p>
+    </div>
+    <div class="number-box"><span class="number">81</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Redundant</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">No longer needed.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Many workers were made redundant."</p>
+    </div>
+    <div class="number-box"><span class="number">82</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Remuneration</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Money paid for work.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The remuneration for this role is high."</p>
+    </div>
+    <div class="number-box"><span class="number">83</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Resilient</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Able to recover quickly.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Children are often very resilient."</p>
+    </div>
+    <div class="number-box"><span class="number">84</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Rote learning</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Learning by repetition.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Rote learning is less effective than thinking."</p>
+    </div>
+    <div class="number-box"><span class="number">85</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Scarcity</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Short supply.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The scarcity of food caused price rises."</p>
+    </div>
+    <div class="number-box"><span class="number">86</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Sector</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">A specific part of the economy.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The tourism sector is growing rapidly."</p>
+    </div>
+    <div class="number-box"><span class="number">87</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Sedentary</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Sitting down a lot.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"A sedentary lifestyle is unhealthy."</p>
+    </div>
+    <div class="number-box"><span class="number">88</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Verb</span></div>
+    <h2 class="word">Subsidize</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">To pay part of the cost.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The government should subsidize transport."</p>
+    </div>
+    <div class="number-box"><span class="number">89</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Substantial</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Large in size or importance.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"There has been a substantial increase."</p>
+    </div>
+    <div class="number-box"><span class="number">90</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Sustainable</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Able to continue for a long time.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"We need sustainable energy sources."</p>
+    </div>
+    <div class="number-box"><span class="number">91</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Technological</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Relating to technology.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"It's an era of fast technological change."</p>
+    </div>
+    <div class="number-box"><span class="number">92</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Tentative</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Not certain or fixed.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"We made a tentative plan to meet."</p>
+    </div>
+    <div class="number-box"><span class="number">93</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Unanimous</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Fully in agreement.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The committee was unanimous."</p>
+    </div>
+    <div class="number-box"><span class="number">94</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Urbanization</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">The growth of cities.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Urbanization leads to housing shortages."</p>
+    </div>
+    <div class="number-box"><span class="number">95</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Versatile</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Able to be used in many ways.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"A smartphone is a versatile tool."</p>
+    </div>
+    <div class="number-box"><span class="number">96</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Virtual</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Existing on computers/online.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Many students attend virtual classes."</p>
+    </div>
+    <div class="number-box"><span class="number">97</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Adjective</span></div>
+    <h2 class="word">Vulnerable</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Easy to hurt or attack.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Small children are vulnerable to the cold."</p>
+    </div>
+    <div class="number-box"><span class="number">98</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Noun</span></div>
+    <h2 class="word">Well-being</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">Being healthy or happy.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"Exercise is essential for well-being."</p>
+    </div>
+    <div class="number-box"><span class="number">99</span></div>
+</div>
+
+<div class="card">
+    <div class="pos-box"><span class="pos">Verb</span></div>
+    <h2 class="word">Yield</h2>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="meaning-box">
+        <span class="label">Meaning</span>
+        <p class="meaning">To produce or provide.</p>
+    </div>
+    <div class="divider-box"><div class="divider"></div></div>
+    <div class="example-box">
+        <span class="label">Example</span>
+        <p class="example">"The new policy will yield positive results."</p>
+    </div>
+    <div class="number-box"><span class="number">100</span></div>
+</div>
+
+    </main>
+
+</body>
+
+</html>
