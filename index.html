@@ -1,0 +1,2894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+
+    <title>Phrase Vantage - Vocabularies</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            background-color: #f6fef5;
+            color: #0c8300;
+            display: flex;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        * {
+            font-family: "Manrope", sans-serif;
+            box-sizing: border-box;
+        }
+
+        .main-wrapper {
+            width: 100%;
+            max-width: 1900px;
+            padding: 20px;
+        }
+
+        /* --- Animations --- */
+        @keyframes drawLine {
+            from { width: 0; height: 0; opacity: 0; }
+            to { width: 30px; height: 30px; opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* --- Header Section --- */
+        .header {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 25px;
+            margin-top: 5px;
+        }
+
+        .header > div {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-left { justify-content: flex-start; }
+
+        .logo-box {
+            position: relative;
+            padding: 15px 15px;
+            display: inline-block;
+        }
+
+        .logo-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-top: 3px solid #0c8300;
+            border-left: 3px solid #0c8300;
+            animation: drawLine 0.6s ease-out forwards;
+        }
+
+        .logo-box::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            border-bottom: 3px solid #0c8300;
+            border-right: 3px solid #0c8300;
+            animation: drawLine 0.6s ease-out forwards;
+        }
+
+        .logo-text {
+            font-weight: 800;
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            line-height: 0.85;
+            animation: scaleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .logo-text .light-green { color: #58c04c; }
+        .logo-text .dark-green { color: #0c8300; }
+
+        .header-center { justify-content: center; }
+
+        .tabs-container {
+            border-radius: 15px;
+            background-color: #f6fef5;
+            display: flex;
+            padding: 0;
+            width: 600px;
+            height: 100px;
+            box-shadow: 0 10px 10px rgba(12, 131, 0, 0.1);
+            animation: fadeInUp 0.8s ease-out;
+            transition: transform 0.3s ease;
+        }
+        
+        .tabs-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .tabs-container span {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            line-height: 1.2;
+            text-align: center;
+            color: #0c8300;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .tabs-container span:hover { color: #58c04c; }
+
+        .tabs-container .line {
+            flex: none;
+            width: 2px;
+            height: 70%;
+            background-color: #58c04c;
+            margin: auto;
+        }
+
+        .header-right { justify-content: flex-end; }
+
+        .headline {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 0.9;
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        .headline span:first-child { color: #58c04c; }
+        .headline span:last-child { color: #0c8300; }
+
+        /* --- Vocabulary Section --- */
+        .vocabulary-container {
+            width: 100%;
+            border-top: 2px solid #58c04c;
+            border-left: 2px solid #58c04c;
+            border-right: 2px solid #58c04c;
+        }
+
+        .vocabulary-row {
+            display: flex;
+            width: 100%;
+            position: relative;
+            height: 180px;
+            min-height: 160px;
+            border-bottom: 2px solid #58c04c;
+            background-color: transparent;
+            transition: background-color 0.4s ease;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        /* Staggered animation for rows */
+        .vocabulary-row { animation-delay: 0.1s; }
+
+        .row-column {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .row-col1, .row-col3 { 
+            width: 30%; 
+            overflow: hidden; 
+            cursor: pointer;
+            background-color: #0c8300; 
+        }
+
+        .row-col2 {
+            width: 40%;
+            flex-direction: column;
+            background-color: #e6ffe5;
+            transition: background-color 0.4s ease;
+        }
+
+        .row-col2 .main-word {
+            color: #0c8300;
+        }
+
+        .row-col2 .label-text {
+            color: #58c04c;
+            font-size: 1px; 
+            font-weight: 700;
+        }
+
+        .vertical-line {
+            width: 2px;
+            height: 100px;
+            background-color: #58c04c;
+            align-self: center;
+            transition: height 0.4s ease;
+            position: relative;
+            z-index: 10; 
+        }
+
+        .vocabulary-row:hover .vertical-line {
+            height: 100%;
+        }
+
+        .label-text {
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            position: absolute;
+            top: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .main-word {
+            font-size: 40px; /* Reduced slightly to fit longer words */
+            font-weight: 600;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .vocabulary-row:hover .main-word {
+            transform: scale(1.1);
+        }
+
+        .row-number {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #58c04c;
+            transition: transform 0.3s ease;
+        }
+
+        .vocabulary-row:hover .row-number {
+            transform: translateX(-10px) scale(1.2);
+        }
+
+        .row-col1::before, .row-col1::after,
+        .row-col3::before, .row-col3::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 51%; 
+            background-color: #f6fef5; 
+            z-index: 5;
+            transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+        }
+
+        .row-col1::before, .row-col3::before {
+            top: 0;
+            transform: translateY(0);
+        }
+
+        .row-col1::after, .row-col3::after {
+            bottom: 0;
+            transform: translateY(0);
+        }
+
+        .row-col1:hover::before, .row-col3:hover::before {
+            transform: translateY(-101%);
+        }
+
+        .row-col1:hover::after, .row-col3:hover::after {
+            transform: translateY(101%);
+        }
+
+        .context-text {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            opacity: 1; 
+            z-index: 2;
+            pointer-events: none;
+            text-align: center;
+        }
+
+        .context-text .context-title {
+            color: #58c04c;
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: 13px;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+        }
+
+        .context-text .context-body {
+            color: #ffffff;
+            font-size: 17px; /* Adjusted for longer definitions */
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .placeholder-outer {
+            position: absolute;
+            z-index: 10;
+            color: #0c8300;
+            font-size: 26px;
+            font-weight: 600;
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .row-col1:hover .placeholder-outer, .row-col3:hover .placeholder-outer {
+            opacity: 0;
+            transform: scale(1.2);
+        }
+
+
+
+        
+
+
+    </style>
+</head>
+
+<body>
+    <main class="main-wrapper">
+        <header class="header">
+            <div class="header-left">
+                <div class="logo-box">
+                    <div class="logo-text">
+                        <span class="light-green">PHRASE</span><br>
+                        <span class="dark-green">VANTAGE</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-center">
+                <div class="tabs-container">
+                    <span>Beginner<br>Vocabularies</span>
+                    <span class="line"></span>
+                    <span>Intermediate<br>vocabularies</span>
+                    <span class="line"></span>
+                    <span>Advanced<br>vocabularies</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="headline">
+                    <span>100</span>
+                    <span>Vocabularies.</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="vocabulary-container">
+            
+            <!-- Row 1: Abstemious -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Not self-indulgent, especially when eating and drinking.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Abstemious</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The monk led an abstemious life, seeking spiritual clarity.</div>
+                    </div>
+                </div>
+                <div class="row-number">01</div>
+            </div>
+
+            <!-- Row 2: Amiable -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Having or displaying a friendly and pleasant manner.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Amiable</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">An amiable fellow, he was always welcome at the local pub.</div>
+                    </div>
+                </div>
+                <div class="row-number">02</div>
+            </div>
+
+            <!-- Row 3: Assiduous -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Showing great care and perseverance.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Assiduous</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">She was assiduous in her duties, never missing a deadline.</div>
+                    </div>
+                </div>
+                <div class="row-number">03</div>
+            </div>
+
+            <!-- Row 4: Capricious -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Given to sudden and unaccountable changes of mood or behavior.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Capricious</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The capricious weather made planning the picnic impossible.</div>
+                    </div>
+                </div>
+                <div class="row-number">04</div>
+            </div>
+
+            <!-- Row 5: Churlish -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Rude in a mean-spirited and surly way.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Churlish</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">It seems churlish to complain about such a generous gift.</div>
+                    </div>
+                </div>
+                <div class="row-number">05</div>
+            </div>
+
+            <!-- Row 6: Circumspect -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Wary and unwilling to take risks.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Circumspect</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The officials were very circumspect in their statements.</div>
+                    </div>
+                </div>
+                <div class="row-number">06</div>
+            </div>
+
+            <!-- Row 7: Diligent -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Having or showing care and conscientiousness in one's work.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Diligent</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">A diligent student, she spent every evening in the library.</div>
+                    </div>
+                </div>
+                <div class="row-number">07</div>
+            </div>
+
+            <!-- Row 8: Gregarious -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Fond of company; sociable.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Gregarious</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">He was a gregarious person who loved hosting parties.</div>
+                    </div>
+                </div>
+                <div class="row-number">08</div>
+            </div>
+
+            <!-- Row 9: Impetuous -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Acting or done quickly and without thought or care.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Impetuous</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">Her impetuous decision to quit her job shocked everyone.</div>
+                    </div>
+                </div>
+                <div class="row-number">09</div>
+            </div>
+
+            <!-- Row 10: Indefatigable -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Persisting tirelessly.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Indefatigable</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The charity was run by an indefatigable group of volunteers.</div>
+                    </div>
+                </div>
+                <div class="row-number">10</div>
+            </div>
+
+
+            <!-- Row 11: Irascible -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Having a tendency to be easily angered.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Irascible</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The irascible old man yelled at anyone who stepped on his lawn.</div>
+                    </div>
+                </div>
+                <div class="row-number">11</div>
+            </div>
+
+            <!-- Row 12: Loquacious -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Tending to talk a great deal; talkative.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Loquacious</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The loquacious host kept the conversation going all night.</div>
+                    </div>
+                </div>
+                <div class="row-number">12</div>
+            </div>
+
+            <!-- Row 13: Magnanimous -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Generous or forgiving, especially toward a rival.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Magnanimous</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">She was magnanimous in victory, praising her opponent’s effort.</div>
+                    </div>
+                </div>
+                <div class="row-number">13</div>
+            </div>
+
+            <!-- Row 14: Meticulous -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Showing great attention to detail; very careful and precise.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Meticulous</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The researcher was meticulous in documenting every step.</div>
+                    </div>
+                </div>
+                <div class="row-number">14</div>
+            </div>
+
+            <!-- Row 15: Obsequious -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Obedient or attentive to an excessive or servile degree.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Obsequious</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The waiter's obsequious behavior made the diners uncomfortable.</div>
+                    </div>
+                </div>
+                <div class="row-number">15</div>
+            </div>
+
+            <!-- Row 16: Pensive -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Engaged in, involving, or reflecting deep or serious thought.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Pensive</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">He gazed out the window with a pensive expression.</div>
+                    </div>
+                </div>
+                <div class="row-number">16</div>
+            </div>
+
+            <!-- Row 17: Placid -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Not easily upset or excited; calm and peaceful.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Placid</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The lake was placid in the early morning light.</div>
+                    </div>
+                </div>
+                <div class="row-number">17</div>
+            </div>
+
+            <!-- Row 18: Pragmatic -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Dealing with things sensibly and realistically.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Pragmatic</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">We need a pragmatic solution to this budget crisis.</div>
+                    </div>
+                </div>
+                <div class="row-number">18</div>
+            </div>
+
+            <!-- Row 19: Punctilious -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Showing great attention to detail or correct behavior.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Punctilious</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">He was punctilious about etiquette and social rules.</div>
+                    </div>
+                </div>
+                <div class="row-number">19</div>
+            </div>
+
+            <!-- Row 20: Reticent -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Not revealing one's thoughts or feelings readily.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Reticent</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">She is reticent about her personal life in interviews.</div>
+                    </div>
+                </div>
+                <div class="row-number">20</div>
+            </div>
+
+            <!-- Row 21: Sagacious -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Having or showing keen mental discernment and good judgment.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Sagacious</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The king sought advice from his sagacious counselor.</div>
+                    </div>
+                </div>
+                <div class="row-number">21</div>
+            </div>
+
+            <!-- Row 22: Stoic -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Enduring pain or hardship without showing feelings.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Stoic</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">He maintained a stoic silence during the difficult trial.</div>
+                    </div>
+                </div>
+                <div class="row-number">22</div>
+            </div>
+
+            <!-- Row 23: Taciturn -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Reserved or uncommunicative in speech; saying little.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Taciturn</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The taciturn driver rarely spoke during the long trip.</div>
+                    </div>
+                </div>
+                <div class="row-number">23</div>
+            </div>
+
+            <!-- Row 24: Venerable -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Accorded a great deal of respect, especially because of age.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Venerable</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The venerable institution has existed for three centuries.</div>
+                    </div>
+                </div>
+                <div class="row-number">24</div>
+            </div>
+
+            <!-- Row 25: Zealous -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Having or showing great energy or enthusiasm.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Zealous</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">She is a zealous supporter of environmental protection.</div>
+                    </div>
+                </div>
+                <div class="row-number">25</div>
+            </div>
+
+            <!-- Row 26: Ambiguous -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Open to more than one interpretation.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Ambiguous</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The ending of the movie was intentionally ambiguous.</div>
+                    </div>
+                </div>
+                <div class="row-number">26</div>
+            </div>
+
+            <!-- Row 27: Anachronism -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Something that belongs to a different period than it exists in.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">NOUN</div>
+                    <div class="main-word">Anachronism</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The smartphone in the medieval film was a clear anachronism.</div>
+                    </div>
+                </div>
+                <div class="row-number">27</div>
+            </div>
+
+            <!-- Row 28: Articulate -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Ability to speak fluently and coherently.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Articulate</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">She is an articulate speaker who expresses her ideas clearly.</div>
+                    </div>
+                </div>
+                <div class="row-number">28</div>
+            </div>
+
+            <!-- Row 29: Cogent -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Clear, logical, and convincing argument.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Cogent</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The lawyer presented a cogent case to the jury.</div>
+                    </div>
+                </div>
+                <div class="row-number">29</div>
+            </div>
+
+            <!-- Row 30: Conundrum -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">A confusing and difficult problem or question.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">NOUN</div>
+                    <div class="main-word">Conundrum</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">It is a difficult conundrum with no easy solution.</div>
+                    </div>
+                </div>
+                <div class="row-number">30</div>
+            </div>
+
+            <!-- Row 31: Didactic -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Intended to teach, particularly moral instruction.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Didactic</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The fable was written for a didactic purpose.</div>
+                    </div>
+                </div>
+                <div class="row-number">31</div>
+            </div>
+
+            <!-- Row 32: Eloquent -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Fluent or persuasive in speaking or writing.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Eloquent</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The politician gave an eloquent speech about reform.</div>
+                    </div>
+                </div>
+                <div class="row-number">32</div>
+            </div>
+
+            <!-- Row 33: Equivocal -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Open to more than one interpretation; ambiguous.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Equivocal</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The test results were equivocal and needed further study.</div>
+                    </div>
+                </div>
+                <div class="row-number">33</div>
+            </div>
+
+            <!-- Row 34: Esoteric -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Intended for or understood by only a small number.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Esoteric</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">He has an esoteric hobby that few people understand.</div>
+                    </div>
+                </div>
+                <div class="row-number">34</div>
+            </div>
+
+            <!-- Row 35: Euphemism -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">A mild word substituted for one considered too harsh.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">NOUN</div>
+                    <div class="main-word">Euphemism</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">"Passed away" is a common euphemism for "died."</div>
+                    </div>
+                </div>
+                <div class="row-number">35</div>
+            </div>
+
+            <!-- Row 36: Exacerbate -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Make a problem or negative feeling worse.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">VERB</div>
+                    <div class="main-word">Exacerbate</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The new policy only served to exacerbate the conflict.</div>
+                    </div>
+                </div>
+                <div class="row-number">36</div>
+            </div>
+
+            <!-- Row 37: Facetious -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Treating serious issues with inappropriate humor.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Facetious</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">I was being facetious when I said I’d quit tomorrow.</div>
+                    </div>
+                </div>
+                <div class="row-number">37</div>
+            </div>
+
+            <!-- Row 38: Fallacy -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">A mistaken belief based on unsound argument.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">NOUN</div>
+                    <div class="main-word">Fallacy</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The idea that lightning never strikes twice is a fallacy.</div>
+                    </div>
+                </div>
+                <div class="row-number">38</div>
+            </div>
+
+            <!-- Row 39: Garrulous -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Excessively talkative, especially on trivial matters.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Garrulous</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The garrulous neighbor kept me at the door for an hour.</div>
+                    </div>
+                </div>
+                <div class="row-number">39</div>
+            </div>
+
+            <!-- Row 40: Hyperbole -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Exaggerated statements not meant to be taken literally.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">NOUN</div>
+                    <div class="main-word">Hyperbole</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">Saying you’re "starving" after skipping lunch is hyperbole.</div>
+                    </div>
+                </div>
+                <div class="row-number">40</div>
+            </div>
+
+            <!-- Row 41: Incisive -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Intelligently analytical and clear-thinking.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Incisive</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">Her incisive analysis of the situation was very helpful.</div>
+                    </div>
+                </div>
+                <div class="row-number">41</div>
+            </div>
+
+            <!-- Row 42: Inherent -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Existing in something as a permanent or essential attribute.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Inherent</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">Risk is inherent in any business venture.</div>
+                    </div>
+                </div>
+                <div class="row-number">42</div>
+            </div>
+
+            <!-- Row 43: Luminous -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Full of light; bright (often used for clarity of thought).</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Luminous</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The watch has luminous hands that glow in the dark.</div>
+                    </div>
+                </div>
+                <div class="row-number">43</div>
+            </div>
+
+            <!-- Row 44: Nefarious -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Wicked or criminal activity.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Nefarious</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The villain plotted a nefarious scheme to take over.</div>
+                    </div>
+                </div>
+                <div class="row-number">44</div>
+            </div>
+
+            <!-- Row 45: Paradigm -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">A typical example or pattern of something; a model.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">NOUN</div>
+                    <div class="main-word">Paradigm</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">This discovery led to a paradigm shift in science.</div>
+                    </div>
+                </div>
+                <div class="row-number">45</div>
+            </div>
+
+            <!-- Row 46: Ameliorate -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Make something bad or unsatisfactory better.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">VERB</div>
+                    <div class="main-word">Ameliorate</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">New laws were passed to ameliorate working conditions.</div>
+                    </div>
+                </div>
+                <div class="row-number">46</div>
+            </div>
+
+            <!-- Row 47: Catalyst -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">A person or thing that precipitates an event.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">NOUN</div>
+                    <div class="main-word">Catalyst</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The speech acted as a catalyst for the revolution.</div>
+                    </div>
+                </div>
+                <div class="row-number">47</div>
+            </div>
+
+            <!-- Row 48: Coalesce -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Come together to form one mass or whole.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">VERB</div>
+                    <div class="main-word">Coalesce</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The different groups began to coalesce into a movement.</div>
+                    </div>
+                </div>
+                <div class="row-number">48</div>
+            </div>
+
+            <!-- Row 49: Corroborate -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Confirm or give support to a statement or theory.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">VERB</div>
+                    <div class="main-word">Corroborate</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">Witnesses were called to corroborate her story.</div>
+                    </div>
+                </div>
+                <div class="row-number">49</div>
+            </div>
+
+            <!-- Row 50: Curtail -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Reduce in extent or quantity; impose a restriction on.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">VERB</div>
+                    <div class="main-word">Curtail</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">Spending must be curtailed to avoid a deficit.</div>
+                    </div>
+                </div>
+                <div class="row-number">50</div>
+            </div>
+
+            <!-- Row 51: Dormant -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Having normal physical functions suspended for a period.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Dormant</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The volcano has been dormant for hundreds of years.</div>
+                    </div>
+                </div>
+                <div class="row-number">51</div>
+            </div>
+
+            <!-- Row 52: Elicit -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Evoke or draw out a response from someone.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">VERB</div>
+                    <div class="main-word">Elicit</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The teacher tried to elicit answers from the shy students.</div>
+                    </div>
+                </div>
+                <div class="row-number">52</div>
+            </div>
+
+            <!-- Row 53: Ephemeral -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Lasting for a very short time.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Ephemeral</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">Fame is often ephemeral, fading as quickly as it came.</div>
+                    </div>
+                </div>
+                <div class="row-number">53</div>
+            </div>
+
+            <!-- Row 54: Fortuitous -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Happening by accident or chance rather than design.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Fortuitous</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">It was a fortuitous meeting that changed my life.</div>
+                    </div>
+                </div>
+                <div class="row-number">54</div>
+            </div>
+
+            <!-- Row 55: Galvanize -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Shock or excite someone into taking action.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">VERB</div>
+                    <div class="main-word">Galvanize</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The disaster galvanized the nation to help those in need.</div>
+                    </div>
+                </div>
+                <div class="row-number">55</div>
+            </div>
+
+            <!-- Row 56: Impetus -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">The force or energy with which a body moves.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">NOUN</div>
+                    <div class="main-word">Impetus</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The grant provided the impetus for the research project.</div>
+                    </div>
+                </div>
+                <div class="row-number">56</div>
+            </div>
+
+            <!-- Row 57: Inundate -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Overwhelm someone with things or people; flood.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">VERB</div>
+                    <div class="main-word">Inundate</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The office was inundated with complaints from customers.</div>
+                    </div>
+                </div>
+                <div class="row-number">57</div>
+            </div>
+
+            <!-- Row 58: Mitigate -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Make less severe, serious, or painful.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">VERB</div>
+                    <div class="main-word">Mitigate</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">Planting trees can help mitigate the effects of pollution.</div>
+                    </div>
+                </div>
+                <div class="row-number">58</div>
+            </div>
+
+            <!-- Row 59: Obviate -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Remove a need or difficulty.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">VERB</div>
+                    <div class="main-word">Obviate</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The new system will obviate the need for manual data entry.</div>
+                    </div>
+                </div>
+                <div class="row-number">59</div>
+            </div>
+
+            <!-- Row 60: Oscillate -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Move or swing back and forth at a regular speed.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">VERB</div>
+                    <div class="main-word">Oscillate</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The fan oscillates, cooling the whole room.</div>
+                    </div>
+                </div>
+                <div class="row-number">60</div>
+            </div>
+
+            <!-- Row 61: Pervasive -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Spreading widely throughout an area or a group.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Pervasive</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The smell of fresh bread was pervasive in the bakery.</div>
+                    </div>
+                </div>
+                <div class="row-number">61</div>
+            </div>
+
+            <!-- Row 62: Plausible -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Seeming reasonable or probable.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Plausible</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">He gave a plausible explanation for his absence.</div>
+                    </div>
+                </div>
+                <div class="row-number">62</div>
+            </div>
+
+            <!-- Row 63: Precipitate -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Cause an event (typically bad) to happen suddenly.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">VERB</div>
+                    <div class="main-word">Precipitate</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The incident precipitated a crisis in the government.</div>
+                    </div>
+                </div>
+                <div class="row-number">63</div>
+            </div>
+
+            <!-- Row 64: Proliferate -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Increase rapidly in numbers; multiply.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">VERB</div>
+                    <div class="main-word">Proliferate</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">Small businesses began to proliferate in the city.</div>
+                    </div>
+                </div>
+                <div class="row-number">64</div>
+            </div>
+
+            <!-- Row 65: Recapitulate -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Summarize and state again the main points of.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">VERB</div>
+                    <div class="main-word">Recapitulate</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">Let me briefly recapitulate the main points of the talk.</div>
+                    </div>
+                </div>
+                <div class="row-number">65</div>
+            </div>
+
+            <!-- Row 66: Anomaly -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Something that deviates from standard or expected.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">NOUN</div>
+                    <div class="main-word">Anomaly</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The failure of the machine was an anomaly.</div>
+                    </div>
+                </div>
+                <div class="row-number">66</div>
+            </div>
+
+            <!-- Row 67: Apathy -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Lack of interest, enthusiasm, or concern.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">NOUN</div>
+                    <div class="main-word">Apathy</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">Low voter turnout is often blamed on voter apathy.</div>
+                    </div>
+                </div>
+                <div class="row-number">67</div>
+            </div>
+
+            <!-- Row 68: Arbitrary -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Based on random choice rather than reason.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Arbitrary</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The teacher’s rules seemed completely arbitrary.</div>
+                    </div>
+                </div>
+                <div class="row-number">68</div>
+            </div>
+
+            <!-- Row 69: Austere -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Severe or strict in manner or appearance.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Austere</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The monastery was known for its austere way of life.</div>
+                    </div>
+                </div>
+                <div class="row-number">69</div>
+            </div>
+
+            <!-- Row 70: Benevolent -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Well-meaning and kindly.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Benevolent</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">A benevolent donor gave money for the new library.</div>
+                    </div>
+                </div>
+                <div class="row-number">70</div>
+            </div>
+
+            <!-- Row 71: Bureaucracy -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">A complex system of administration.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">NOUN</div>
+                    <div class="main-word">Bureaucracy</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">Getting a visa involves a lot of bureaucracy.</div>
+                    </div>
+                </div>
+                <div class="row-number">71</div>
+            </div>
+
+            <!-- Row 72: Clandestine -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Kept secret or done secretively.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Clandestine</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The spy was involved in clandestine operations.</div>
+                    </div>
+                </div>
+                <div class="row-number">72</div>
+            </div>
+
+            <!-- Row 73: Deference -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Humble submission and respect.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">NOUN</div>
+                    <div class="main-word">Deference</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">He bowed his head in deference to his elders.</div>
+                    </div>
+                </div>
+                <div class="row-number">73</div>
+            </div>
+
+            <!-- Row 74: Despot -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">A ruler who holds absolute power, typically cruel.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">NOUN</div>
+                    <div class="main-word">Despot</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The country was ruled by a cruel despot.</div>
+                    </div>
+                </div>
+                <div class="row-number">74</div>
+            </div>
+
+            <!-- Row 75: Egalitarian -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Believing that all people are equal.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Egalitarian</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">They aimed to create a more egalitarian society.</div>
+                    </div>
+                </div>
+                <div class="row-number">75</div>
+            </div>
+
+            <!-- Row 76: Enigma -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">A person or thing that is mysterious or puzzling.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">NOUN</div>
+                    <div class="main-word">Enigma</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">His disappearance remains an enigma to this day.</div>
+                    </div>
+                </div>
+                <div class="row-number">76</div>
+            </div>
+
+            <!-- Row 77: Hierarchy -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">A system where groups are ranked by status.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">NOUN</div>
+                    <div class="main-word">Hierarchy</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">She rose quickly through the corporate hierarchy.</div>
+                    </div>
+                </div>
+                <div class="row-number">77</div>
+            </div>
+
+            <!-- Row 78: Imperious -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Assuming power without justification; domineering.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Imperious</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">She had an imperious manner that put people off.</div>
+                    </div>
+                </div>
+                <div class="row-number">78</div>
+            </div>
+
+            <!-- Row 79: Indigent -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Poor; needy.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Indigent</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The clinic provides free care for indigent patients.</div>
+                    </div>
+                </div>
+                <div class="row-number">79</div>
+            </div>
+
+            <!-- Row 80: Malaise -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">A general feeling of discomfort or uneasiness.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">NOUN</div>
+                    <div class="main-word">Malaise</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">A general malaise has settled over the economy.</div>
+                    </div>
+                </div>
+                <div class="row-number">80</div>
+            </div>
+
+            <!-- Row 81: Obsolete -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">No longer produced or used; out of date.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Obsolete</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">Typewriters have become obsolete in most offices.</div>
+                    </div>
+                </div>
+                <div class="row-number">81</div>
+            </div>
+
+            <!-- Row 82: Opulent -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Ostentatiously rich and luxurious or lavish.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Opulent</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The palace was decorated in an opulent style.</div>
+                    </div>
+                </div>
+                <div class="row-number">82</div>
+            </div>
+
+            <!-- Row 83: Pragmatist -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">A person guided by practical considerations.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">NOUN</div>
+                    <div class="main-word">Pragmatist</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">As a pragmatist, she focused on what was achievable.</div>
+                    </div>
+                </div>
+                <div class="row-number">83</div>
+            </div>
+
+            <!-- Row 84: Quixotic -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Exceedingly idealistic; unrealistic and impractical.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Quixotic</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">He had a quixotic dream of ending world hunger.</div>
+                    </div>
+                </div>
+                <div class="row-number">84</div>
+            </div>
+
+            <!-- Row 85: Synergy -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Interaction of agents for a greater combined effect.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">NOUN</div>
+                    <div class="main-word">Synergy</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The synergy between the two companies led to success.</div>
+                    </div>
+                </div>
+                <div class="row-number">85</div>
+            </div>
+
+            <!-- Row 86: Alacrity -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Brisk and cheerful readiness.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">NOUN</div>
+                    <div class="main-word">Alacrity</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">She accepted the invitation with alacrity.</div>
+                    </div>
+                </div>
+                <div class="row-number">86</div>
+            </div>
+
+            <!-- Row 87: Ambivalence -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Having mixed feelings or contradictory ideas.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">NOUN</div>
+                    <div class="main-word">Ambivalence</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">He felt ambivalence about moving to a new city.</div>
+                    </div>
+                </div>
+                <div class="row-number">87</div>
+            </div>
+
+            <!-- Row 88: Complacent -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Showing smug satisfaction with oneself.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Complacent</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">We cannot afford to be complacent about our success.</div>
+                    </div>
+                </div>
+                <div class="row-number">88</div>
+            </div>
+
+            <!-- Row 89: Despondent -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">In low spirits from loss of hope.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Despondent</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">She grew despondent after her research project failed.</div>
+                    </div>
+                </div>
+                <div class="row-number">89</div>
+            </div>
+
+            <!-- Row 90: Euphoria -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">A feeling or state of intense excitement and happiness.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">NOUN</div>
+                    <div class="main-word">Euphoria</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The team was in a state of euphoria after the win.</div>
+                    </div>
+                </div>
+                <div class="row-number">90</div>
+            </div>
+
+            <!-- Row 91: Exuberant -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Filled with lively energy and excitement.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Exuberant</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The exuberant crowd cheered loudly for the band.</div>
+                    </div>
+                </div>
+                <div class="row-number">91</div>
+            </div>
+
+            <!-- Row 92: Fastidious -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Very attentive to accuracy and detail.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Fastidious</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">He was fastidious about the organization of his desk.</div>
+                    </div>
+                </div>
+                <div class="row-number">92</div>
+            </div>
+
+            <!-- Row 93: Innocuous -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Not harmful or offensive.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Innocuous</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">It seemed like an innocuous question at the time.</div>
+                    </div>
+                </div>
+                <div class="row-number">93</div>
+            </div>
+
+            <!-- Row 94: Insipid -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Lacking flavor or vigor; dull.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Insipid</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The coffee was insipid and lukewarm.</div>
+                    </div>
+                </div>
+                <div class="row-number">94</div>
+            </div>
+
+            <!-- Row 95: Malleable -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Easily influenced; pliable.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Malleable</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">Young children's minds are very malleable.</div>
+                    </div>
+                </div>
+                <div class="row-number">95</div>
+            </div>
+
+            <!-- Row 96: Ostentatious -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Characterized by vulgar or pretentious display.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Ostentatious</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The house was filled with ostentatious furniture.</div>
+                    </div>
+                </div>
+                <div class="row-number">96</div>
+            </div>
+
+            <!-- Row 97: Pristine -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">In its original condition; unspoiled.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Pristine</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The snow lay in a pristine blanket across the field.</div>
+                    </div>
+                </div>
+                <div class="row-number">97</div>
+            </div>
+
+            <!-- Row 98: Resilient -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Able to withstand or recover quickly from difficulty.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Resilient</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">She is a resilient woman who has overcome many challenges.</div>
+                    </div>
+                </div>
+                <div class="row-number">98</div>
+            </div>
+
+            <!-- Row 99: Ubiquitous -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Present, appearing, or found everywhere.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Ubiquitous</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">Smartphones have become ubiquitous in modern society.</div>
+                    </div>
+                </div>
+                <div class="row-number">99</div>
+            </div>
+
+            <!-- Row 100: Vibrant -->
+            <div class="vocabulary-row">
+                <div class="row-column row-col1">
+                    <div class="placeholder-outer">Meaning</div>
+                    <div class="context-text">
+                        <div class="context-title">Meaning</div>
+                        <div class="context-body">Full of energy and enthusiasm.</div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col2">
+                    <div class="label-text">ADJECTIVE</div>
+                    <div class="main-word">Vibrant</div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="row-column row-col3">
+                    <div class="placeholder-outer">Example</div>
+                    <div class="context-text">
+                        <div class="context-title">Example</div>
+                        <div class="context-body">The city has a vibrant nightlife and cultural scene.</div>
+                    </div>
+                </div>
+                <div class="row-number">100</div>
+            </div>
+            <!-- ... (Repeat this block pattern for words 11 to 100) ... -->
+
+        </section>
+    </main>
+</body>
+</html>
