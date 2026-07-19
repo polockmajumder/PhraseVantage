@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phrase Vantage - Beginner Vocabularies</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(
+                to bottom, 
+                #e6f4f4 50%, 
+                #b2d8d6 70%, 
+                #4d9692 83%, 
+                #0b4d49 93%, 
+                #042624 100%
+            ); 
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 0;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.12;
+            background-image: radial-gradient(#0b4d49 1.5px, transparent 1.5px);
+            background-size: 30px 30px; 
+            pointer-events: none;
+        }
+
+        /* =========================================
+            TOP BAR STYLES
+           ========================================= */
+        .top-navbar {
+            background-color: #053330;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0px 8px 10px rgba(4, 38, 36, 0.2), 0px 8px 10px rgba(4, 38, 36, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100; 
+        }
+
+        .brand-logo {
+            color: #e6f4f4;
+            font-size: 50px;
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-logo span {
+            color: #1fdcc9;
+            display: block;
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .tab-btn {
+            color: #0b4d49;
+            border: none;
+            width: 150px;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: 500;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 0 10px 0 10px;
+            cursor: pointer;
+            background: linear-gradient(to top, #1eccbb 50%, #e6f4f4 50%);
+            background-size: 100% 200%;
+            background-position: 0% 0%;
+            transition: background-position 0.4s ease, color 0.4s ease;
+        }
+
+        .tab-btn:hover {
+            background-position: 0% 100%;
+            color: #042624;
+        }
+
+        .tab-btn.btn-dark {
+            color: #042624;
+            background: linear-gradient(to top, #e6f4f4 50%, #1eccbb 50%);
+            background-size: 100% 200%;
+            background-position: 0% 0%;
+        }
+
+        .tab-btn.btn-dark:hover {
+            background-position: 0% 100%;
+            color: #0b4d49;
+        }
+
+        .right-title {
+            color: #1fdcc9;
+            text-align: right;
+            font-size: 50px;
+            font-weight: 600;
+            line-height: 1.1;
+        }
+
+        .right-title span {
+            color: #e6f4f4;
+            display: block;
+        }
+
+        /* =========================================
+            MENU OVERLAY
+           ========================================= */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(4, 38, 36, 0.6);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .menu-content {
+            background-color: #053330;
+            border-radius: 0px 10px 0px 10px;
+            padding: 30px 35px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 2px #1eccbb;
+            transform: scale(0.85);
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .menu-overlay.active .menu-content {
+            transform: scale(1);
+        }
+
+        .menu-side-column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 180px;
+        }
+
+        .menu-link-btn {
+            background-color: #1eccbb;
+            color: #042624;
+            text-decoration: none;
+            text-align: center;
+            padding: 12px 20px;
+            font-weight: 600;
+            font-size: 18px;
+            border-radius: 0px 10px 0px 10px;
+            border: 2px solid #1eccbb;
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .menu-link-btn:hover {
+            transform: scale(1.08);
+            background-color: transparent;
+            color: #e6f4f4;
+        }
+
+        .menu-vertical-line {
+            width: 2px;
+            height: 160px;
+            background-color: #e6f4f4;
+            opacity: 0.3;
+        }
+
+        .menu-home-btn {
+            background-color: #e6f4f4;
+            color: #053330;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 150px;
+            height: 150px;
+            font-size: 24px;
+            font-weight: 700;
+            border-radius: 35px;
+            position: relative;
+            transition: transform 0.35s ease, background-color 0.35s ease, color 0.35s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+            z-index: 1;
+        }
+
+        .menu-home-btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 35px;
+            border: 3px solid #e6f4f4;
+            opacity: 0;
+            transform: scale(0.85);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .menu-home-btn:hover {
+            transform: scale(1.05);
+            background-color: #ffffff;
+        }
+
+        .menu-home-btn:hover::after {
+            opacity: 1;
+            transform: scale(1.18);
+        }
+
+        /* =========================================
+            VOCABULARY GRID
+           ========================================= */
+        .vocab-grid-container {
+            flex-grow: 1;
+            padding: 40px;
+            column-count: 3;
+            column-gap: 80px;
+            column-rule: 3px solid #0b4d49;
+        }
+
+        .word-card {
+            display: block;
+            width: 100%;
+            max-width: 490px;
+            padding: 55px 24px 45px 24px;
+            border-radius: 0 10px 0 10px;
+            position: relative;
+            text-decoration: none;
+            box-shadow: 4px 4px 0px #0b4d49;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background-color: #a3dedb;
+            overflow: hidden;
+            z-index: 1;
+            break-inside: avoid; 
+            margin: 0 auto 28px auto;
+            opacity: 0;
+            filter: blur(12px);
+            transform: scale(0.94);
+            animation: premiumReveal 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation-delay: 0.15s;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease, background-color 0.4s ease;
+        }
+
+        @keyframes premiumReveal {
+            to { opacity: 1; filter: blur(0px); transform: scale(1); }
+        }
+
+        .word-card:hover { transform: translateY(-5px); box-shadow: 0px 12px 20px rgba(4, 38, 36, 0.25); }
+
+        .word-card::after {
+            content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
+            transform: skewX(-25deg); z-index: 3;
+        }
+
+        .word-card:hover::after { left: 150%; transition: left 0.8s ease-in-out; }
+
+        .word-card::before {
+            content: ''; position: absolute; top: 50%; left: 50%; width: 10px; height: 10px;
+            background-color: #0b4d49; border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: -1;
+        }
+
+        .word-card:hover::before { transform: translate(-50%, -50%) scale(54); }
+
+        .word-text {
+            color: #0b4d49; font-size: 24px; font-weight: 600; position: relative; z-index: 2;
+            transition: color 0.4s ease;
+        }
+
+        .word-card:hover .word-text { color: #e6f4f4; }
+
+        .word-index {
+            position: absolute; top: 14px; right: 18px; color: #0b4d49; font-size: 10.5px;
+            font-weight: 700; z-index: 2; transition: color 0.4s ease; opacity: 0.75;
+        }
+
+        .word-card:hover .word-index { color: #e6f4f4; opacity: 1; }
+
+        @media (max-width: 900px) {
+            .vocab-grid-container { column-count: 1; column-rule: none; padding: 20px; }
+            .top-navbar { flex-direction: column; gap: 20px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-navbar">
+        <div class="brand-logo">
+            PHASE
+            <span>VANTAGE</span>
+        </div>
+
+        <nav class="nav-tabs">
+            <div class="nav-row">
+                <a href="#" id="menuTrigger" class="tab-btn btn-dark">Menu</a>
+                <a href="./All.html" class="tab-btn btn-dark">All</a>
+            </div>
+            <div class="nav-row">
+                <a href="./Beginner.html" class="tab-btn">Beginner</a>
+                <a href="./Intermediate.html" class="tab-btn">Intermediate</a>
+                <a href="./Advance.html" class="tab-btn">Advance</a>
+            </div>
+        </nav>
+
+        <div class="right-title">
+            <span>Intermediate</span>
+            Vocabularies.
+        </div>
+    </header>
+
+    <!-- MENU OVERLAY -->
+    <div class="menu-overlay" id="menuOverlay">
+        <div class="menu-content">
+            <div class="menu-side-column">
+                <a href="#" class="menu-link-btn">Phrases</a>
+                <a href="#" class="menu-link-btn">Description</a>
+                <a href="#" class="menu-link-btn">Grammar</a>
+            </div>
+            <div class="menu-vertical-line"></div>
+            <div class="menu-center-column">
+                <a href="./index.html" class="menu-home-btn">Home</a>
+            </div>
+            <div class="menu-vertical-line"></div>
+            <div class="menu-side-column">
+                <a href="#" class="menu-link-btn">Youtube</a>
+                <a href="#" class="menu-link-btn">Facebook</a>
+                <a href="#" class="menu-link-btn">Instagram</a>
+            </div>
+        </div>
+    </div>
+
+    <main class="vocab-grid-container">
+        <a href="#" class="word-card"><span class="word-index">Adjective</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Noun</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Verb</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Adverb</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Adjective</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Noun</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Verb</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Adverb</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Adjective</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Noun</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Verb</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Adverb</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Adjective</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Noun</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Verb</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Adverb</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Adjective</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Noun</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Verb</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Adverb</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Adjective</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Noun</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Verb</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Adverb</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Adjective</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Noun</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Verb</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Adverb</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Adjective</span><span class="word-text">Meticulous</span></a>
+        <a href="#" class="word-card"><span class="word-index">Noun</span><span class="word-text">Meticulous</span></a>
+    </main>
+
+    <script>
+        const menuTrigger = document.getElementById('menuTrigger');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        menuTrigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            menuOverlay.classList.add('active');
+        });
+
+        menuOverlay.addEventListener('click', (e) => {
+            if (e.target === menuOverlay) {
+                menuOverlay.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

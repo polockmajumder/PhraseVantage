@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phrase Vantage</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            overflow-x: hidden;
+            background-color: #fadcdc;
+        }
+
+        /* =======================================================
+            LOADING PAGE STYLES (PURE CSS & HARDWARE ACCELERATED)
+           ======================================================= */
+        .loading-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 100;
+            overflow: hidden;
+            /* Fully removes the loader container after the exit transition completes */
+            animation: hideLoader 0s linear 2.2s forwards;
+        }
+
+        .bars-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .bar {
+            flex: 1;
+            /* Taller than viewport so the rounded capsules start hidden below the screen edge */
+            height: 115vh; 
+            transform-origin: top center;
+            transform: scaleX(1.02);
+            will-change: transform;
+            
+            /* Curves are permanent to avoid triggering constant CPU repaint cycles */
+            border-bottom-left-radius: 100px;
+            border-bottom-right-radius: 100px;
+            
+            position: relative;
+            /* Snappy, performance-friendly cubic bezier curve with an increased delay to read the brand */
+            animation: slideUpBar 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation-delay: calc(0.8s + (var(--i) * 0.04s));
+        }
+
+        /* Layering stack for overlapping box-shadow depth */
+        .bar:nth-child(5) { z-index: 5; }
+        .bar:nth-child(4), .bar:nth-child(6) { z-index: 4; }
+        .bar:nth-child(3), .bar:nth-child(7) { z-index: 3; }
+        .bar:nth-child(2), .bar:nth-child(8) { z-index: 2; }
+        .bar:nth-child(1), .bar:nth-child(9) { z-index: 1; }
+
+        .bar:nth-child(-n+4) { box-shadow: -8px 0 16px rgba(0, 0, 0, 0.14); }
+        .bar:nth-child(5) { box-shadow: -8px 0 16px rgba(0, 0, 0, 0.14), 8px 0 16px rgba(0, 0, 0, 0.14); }
+        .bar:nth-child(n+6) { box-shadow: 8px 0 16px rgba(0, 0, 0, 0.14); }
+
+        .loading-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            /* Text glides upward cleanly out of sight, matching the bar lift timeline */
+            animation: hideContent 0.7s cubic-bezier(0.25, 1, 0.5, 1) 0.8s forwards;
+        }
+
+        .loading-center {
+            text-align: center;
+            transform: translateY(-20px);
+        }
+
+        .logo-text {
+            color: #fedbdb;
+            font-size: 70px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            opacity: 0;
+            /* Slower, ultra-smooth entry so the name lands cleanly */
+            animation: aestheticPop 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .logo-text span {
+            color: #ff1b1b;
+            margin-left: 30px;
+        }
+
+        .enter-text {
+            color: #fecfcf;
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            opacity: 0;
+            animation: fadeInSimple 0.8s ease-out 0.3s forwards;
+        }
+
+        .loading-bottom {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            color: #fecfcf;
+            font-size: 15px;
+            font-weight: 400;
+            opacity: 0;
+            animation: fadeInSimple 0.8s ease-out 0.4s forwards;
+        }
+
+        /* 100% GPU-SMOOTH KEYFRAMES (Transforms and Opacities Only) */
+        @keyframes slideUpBar {
+            0% { transform: scaleX(1.02) translateY(0); }
+            100% { transform: scaleX(1.02) translateY(-115vh); }
+        }
+
+        @keyframes hideContent {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-100vh); }
+        }
+
+        @keyframes hideLoader {
+            0% { visibility: visible; pointer-events: auto; }
+            100% { visibility: hidden; pointer-events: none; }
+        }
+
+        @keyframes aestheticPop {
+            0% { opacity: 0; transform: scale(0.85) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes fadeInSimple {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* =========================================
+            MAIN PAGE STYLES
+            ========================================= */
+        .main-page {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(10px);
+            display: flex;
+            flex-direction: column;
+            width: 100vw;
+            min-height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            /* Gently reveals the landing content behind the exiting shutter */
+            animation: fadeInMainPage 0.8s ease-in-out 1.1s forwards;
+        }
+
+        @keyframes fadeInMainPage {
+            100% { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        }
+
+        .header { 
+            background-color: #380000; 
+            color: #fedbdb; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 20px 70px; 
+            box-shadow: 0px 4px 15px rgba(56, 0, 0, 0.35);
+            position: relative; 
+            top: 0;
+            z-index: 10; 
+        }
+        
+        .header-socials { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+            width: 150px; 
+            align-items: flex-start;
+        }
+
+        .header-social-btn { 
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #fedbdb; 
+            border-radius: 0 10px 0 10px; 
+            padding: 6px 20px; 
+            width: 150px; 
+            text-align: center; 
+            font-size: 18px; 
+            color: #fedbdb; 
+            text-decoration: none; 
+            font-weight: 400; 
+            line-height: 1.2;
+            background: linear-gradient(to top, #fedbdb 50%, transparent 50%);
+            background-size: 100% 200%;
+            background-position: 0% 0%;
+            transition: background-position 0.4s ease, color 0.4s ease;
+        }
+        .header-social-btn:hover {
+            background-position: 0% 100%;
+            color: #380000;
+        }
+
+        .header-center { text-align: center; flex-grow: 1; display: flex; flex-direction: column; align-items: center; margin-top: 5px; }
+        .header-logo { font-size: 60px; font-weight: 450; line-height: 1; letter-spacing: 1px; margin-bottom: 10px; }
+        .header-logo span { color: #ff3232; }
+        .header-tagline-wrapper { display: flex; align-items: center; width: 100%; max-width: 700px; }
+        .header-line { flex-grow: 1; height: 2.5px; background-color: #ff3232; }
+        .header-tagline { padding: 0 12px; font-size: 18px; font-weight: 400; letter-spacing: 1px; }
+        .header-right { width: 100px; text-align: right; font-size: 18px; font-weight: 400; align-self: flex-end; padding-bottom: 5px; }
+
+        .hero { background-color: #fedbdb; padding: 60px 20px 0px 20px; text-align: center; }
+        .hero-title { color: #380000; font-size: 35px; font-weight: 450; margin-bottom: 50px; letter-spacing: 0.5px; word-spacing: 1px; }
+        .hero-title span { color: #ff3232; font-weight: 600; }
+        .hero-list-container { display: inline-block; text-align: left; border-left: 2.5px solid #ff3232; padding-left: 12px; }
+        .hero-list-container p { font-size: 15px; color: #380000; line-height: 1.6; font-weight: 400; }
+
+        .content-wrapper { 
+            background: linear-gradient(
+                to bottom,
+                #fedbdb 0%,
+                #f09b9b 25%,
+                #bc4b4b 50%,
+                #821414 65%, 
+                #640505 82%, 
+                #500000 100%
+            );
+            padding: 90px 0 0 0; 
+        }
+        
+        .cards-grid { display: flex; justify-content: center; gap: 50px; max-width: 1400px; margin: 0 auto; flex-wrap: wrap; }
+        .column { display: flex; flex-direction: column; align-items: center; width: 300px; }
+        .column-title { color: #380000; font-size: 30px; font-weight: 500; margin-bottom: 15px; }
+        .notebook-card { background-color: #ffc2c2; width: 100%; border-radius: 0 20px 0 20px; position: relative; display: flex ; flex-direction: column; gap: 8px; padding: 15px 10px; box-shadow: 12px 12px 20px rgba(0, 0, 0, 0.15);  }
+        .notebook-card::before { content: ''; position: absolute; left: 12px; top: 0; bottom: 0; width: 2.5px; background-color: #ff3232; opacity: 1; }
+        
+        .card-item { 
+            display: block;
+            text-align: center; 
+            padding: 20px 0; 
+            color: #ff3232; 
+            font-size: 18px; 
+            font-weight: 400; 
+            border: none; 
+            text-decoration: none;
+            box-shadow: 4px 6px 5px rgba(56, 0, 0, 0.15), 1px 2px 5px rgba(56, 0, 0, 0.1);
+            border-radius: 0 10px 0 10px; 
+            margin: 5px 10px 5px 22px; 
+            cursor: pointer; 
+            background: linear-gradient(to top, #750000 50%, #fedbdb 50%);
+            background-size: 100% 200%;
+            background-position: 0% 0%;
+            transition: background-position 0.4s ease, color 0.4s ease;
+        }
+        .card-item:hover {
+            background-position: 0% 100%;
+            color: #fedbdb;
+        }
+
+        .cta-section { 
+            background-color: transparent; 
+            color: #fedbdb; 
+            text-align: center; 
+            padding: 150px 20px 150px 20px; 
+            font-size: 30px; 
+            font-weight: 400; 
+        }
+
+        .footer { background-color: #ffc2c2; color: #380000; display: flex; justify-content: center; align-items: center; padding: 40px 50px 30px 50px; position: relative; gap: 40px; }
+        .footer-divider { width: 2.5px; height: 120px; background-color: #ff3232; opacity: 1; }
+        .footer-left { display: flex; flex-direction: column; align-items: center; width: 25%; }
+        .footer-logo { color: #380000; font-size: 40px; font-weight: 500; margin-bottom: 25px; text-align: center; }
+        
+        .whatsapp-btn { 
+            display: inline-block;
+            border: 0px solid #ff3232; 
+            border-radius: 0 15px 0 15px; 
+            padding: 8px 18px; 
+            color: #380000; 
+            text-decoration: none;
+            font-size: 17px; 
+            cursor: pointer; 
+            box-shadow: 4px 6px 5px rgba(56, 0, 0, 0.15), 1px 2px 5px rgba(56, 0, 0, 0.1); 
+            background: linear-gradient(to top, #750000 50%, #fedbdb 50%);
+            background-size: 100% 200%;
+            background-position: 0% 0%;
+            transition: background-position 0.4s ease, color 0.4s ease;
+        }
+        .whatsapp-btn:hover {
+            background-position: 0% 100%;
+            color: #fedbdb;
+        }
+
+        .footer-center { width: 35%; display: flex; justify-content: center; }
+        .contact-card { background-color: #fedbdb; padding: 20px 25px; border-radius: 12px; font-size: 17px; color: #380000; box-shadow: 4px 6px 5px rgba(56, 0, 0, 0.15), 1px 2px 5px rgba(56, 0, 0, 0.1); width: 100%; max-width: 400px; }
+        .footer-right { display: flex; flex-direction: column; align-items: center; width: 25%; }
+        .footer-right p { font-size: 18px; margin-bottom: 12px; font-weight: 450; }
+    
+        .social-btn-dark { 
+            display: block;
+            color: #380000; 
+            text-decoration: none;
+            text-align: center;
+            border: none; 
+            border-radius: 0 10px 0 10px; 
+            padding: 7px 0; 
+            margin-bottom: 8px; 
+            width: 100%; 
+            max-width: 180px; 
+            font-size: 17px; 
+            cursor: pointer; 
+            box-shadow: 4px 6px 5px rgba(56, 0, 0, 0.15), 1px 2px 5px rgba(56, 0, 0, 0.1); 
+            background: linear-gradient(to top, #750000 50%, #fedbdb 50%);
+            background-size: 100% 200%;
+            background-position: 0% 0%;
+            transition: background-position 0.4s ease, color 0.4s ease;
+        }
+        .social-btn-dark:hover {
+            background-position: 0% 100%;
+            color: #fedbdb;
+        }
+
+        .footer-bottom { background-color: #ffc2c2; text-align: center; padding-bottom: 20px; font-size: 16px; color: #380000; }
+    </style>
+</head>
+<body>
+    
+    <div class="loading-page">
+        <div class="bars-container">
+            <div class="bar" style="--i: 8; background-color: #240000;"></div>
+            <div class="bar" style="--i: 7; background-color: #300000;"></div>
+            <div class="bar" style="--i: 6; background-color: #3C0000;"></div>
+            <div class="bar" style="--i: 5; background-color: #480000;"></div>
+            <div class="bar" style="--i: 4; background-color: #540000;"></div>
+            <div class="bar" style="--i: 3; background-color: #480000;"></div>
+            <div class="bar" style="--i: 2; background-color: #3C0000;"></div>
+            <div class="bar" style="--i: 1; background-color: #300000;"></div>
+            <div class="bar" style="--i: 0; background-color: #240000;"></div>
+        </div>
+        <div class="loading-content">
+            <div class="loading-center">
+                <h1 class="logo-text">PHRASE<span>VANTAGE</span></h1>
+                <p class="enter-text">POLOCK MAJUMDER</p>
+            </div>
+            <div class="loading-bottom">SINCE 2026</div>
+        </div>
+    </div>
+
+    <div class="main-page">
+        <header class="header">
+            <div class="header-socials">
+                <a href="#" class="header-social-btn">Youtube</a>
+                <a href="#" class="header-social-btn">Facebook</a>
+                <a href="#" class="header-social-btn">Instagram</a>
+            </div>
+            <div class="header-center">
+                <div class="header-logo">PHRASE<br><span>VANTAGE</span></div>
+                <div class="header-tagline-wrapper">
+                    <div class="header-line"></div>
+                    <div class="header-tagline">Enhance Your English</div>
+                    <div class="header-line"></div>
+                </div>
+            </div>
+            <div class="header-right">Since 2026</div>
+        </header>
+
+        <section class="hero">
+            <h2 class="hero-title">Enhance Your English Skills With <span>PHRASE VANTAGE</span> Team</h2>
+            <div class="hero-list-container">
+                <p>1 Get access to 400+ crucial professional choosen vocabularies.</p>
+                <p>2 All vocabs are choosen for 100 percent fluency.</p>
+                <p>3 50 plus essential phrases</p>
+                <p>4 All Phrases Choosen for 100 percent fluency</p>
+            </div>
+        </section>
+
+        <section class="content-wrapper">
+            <div class="cards-grid">
+                <div class="column">
+                    <h3 class="column-title">Vocabularies</h3>
+                    <div class="notebook-card">
+                        <a href="./All.html" class="card-item">All</a>
+                        <a href="./Beginner.html" class="card-item">Beginner</a>
+                        <a href="./Intermediate.html" class="card-item">Intermediate</a>
+                        <a href="./Advance.html" class="card-item">Advanced</a>
+                    </div>
+                </div>
+                <div class="column">
+                    <h3 class="column-title">Phrases</h3>
+                    <div class="notebook-card">
+                        <a href="#" class="card-item">All</a>
+                        <a href="#" class="card-item">Beginner</a>
+                        <a href="#" class="card-item">Intermediate</a>
+                        <a href="#" class="card-item">Advanced</a>
+                    </div>
+                </div>
+                <div class="column">
+                    <h3 class="column-title">Description</h3>
+                    <div class="notebook-card">
+                        <a href="#" class="card-item">All</a>
+                        <a href="#" class="card-item">Beginner</a>
+                        <a href="#" class="card-item">Intermediate</a>
+                        <a href="#" class="card-item">Advanced</a>
+                    </div>
+                </div>
+                <div class="column">
+                    <h3 class="column-title">Grammar</h3>
+                    <div class="notebook-card">
+                        <a href="#" class="card-item">All</a>
+                        <a href="#" class="card-item">Beginner</a>
+                        <a href="#" class="card-item">Intermediate</a>
+                        <a href="#" class="card-item">Advanced</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                { Click And Get Free Access To These Premium Content }
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-left">
+                <div class="footer-logo">PHRASE<br>VANTAGE</div>
+                <a href="#" class="whatsapp-btn">Whatsapp Community</a>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-center">
+                <div class="contact-card">
+                    Contact me<br>
+                    Gmail: Polock6t6@gmail.com<br>
+                    Instagram: polockmajumder<br>
+                    Stay Connected | Monday-Friday, 9am-5pm
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-right">
+                <p>Follow us on</p>
+                <a href="#" class="social-btn-dark">Youtube</a>
+                <a href="#" class="social-btn-dark">Instagram</a>
+                <a href="#" class="social-btn-dark">Facebook Page</a>
+                <a href="#" class="social-btn-dark">Email us</a>
+            </div>
+        </footer>
+        <div class="footer-bottom">
+            © 2026 PHRASE VANTAGE . All rights reserved.
+        </div>
+    </div>
+</body>
+</html>
